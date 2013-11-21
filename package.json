@@ -1,0 +1,21 @@
+{
+  "name": "mocha-jshint",
+  "version": "0.0.1",
+  "description": "run JSHint as mocha tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "mocha",
+    "jshint"
+  ],
+  "author": "Allan Ebdrup",
+  "license": "Apache2",
+  "devDependencies": {
+    "mocha": ""
+  },
+  "dependencies": {
+    "jshint": "~2.3"
+  }
+}
