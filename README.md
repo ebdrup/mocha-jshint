@@ -19,6 +19,11 @@ require('mocha-jshint')();
 
 That is it you are done.
 
+To grep only the JSHint test, just do
+```
+mocha --grep JSHint
+```
+
 Why?
 ---
 This module was created to:

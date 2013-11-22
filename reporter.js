@@ -1,20 +1,15 @@
 var path = require('path');
-module.exports = function (results) {
-	results.forEach(function (result) {
-		var file = result.file;
-		var error = result.error;
-		describe("JSHint of file " + file, function () {
-			it("should pass", function () {
-				var err = new Error("JSHint error: " + error.reason);
-				err.stack = ' at (' + path.resolve(file) + ':' + error.line + ':' + error.character + ')';
-				throw err;
-			});
+module.exports = function (err) {
+	return function (results) {
+		results.forEach(function (result) {
+			var file = result.file;
+			var error = result.error;
+			if (err.message) {
+				err.message += '\n';
+				err.stack += '\n';
+			}
+			err.message += "JSHint error: " + error.reason + ' ' + file + ':' + error.line + ':' + error.character;
+			err.stack += error.reason + '\n at (' + path.resolve(file) + ':' + error.line + ':' + error.character + ')';
 		});
-	});
-	if (results.length === 0) {
-		describe("JSHint", function () {
-			it("should pass", function () {
-			});
-		});
-	}
+	};
 };

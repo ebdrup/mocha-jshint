@@ -1,6 +1,6 @@
 {
   "name": "mocha-jshint",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "run JSHint as mocha tests",
   "main": "index.js",
   "scripts": {
@@ -17,5 +17,15 @@
   },
   "dependencies": {
     "jshint": "~2.3"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Muscula/mocha-jshint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Muscula/mocha-jshint/issues"
   }
 }
