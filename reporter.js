@@ -5,7 +5,6 @@ module.exports = function (err) {
 			var file = result.file;
 			var error = result.error;
 			if (err.message) {
-				err.message += '\n';
 				err.stack += '\n';
 			}
 			err.message = err.message || 'jshint error(s)';
