@@ -1,6 +1,6 @@
 var path = require('path');
 module.exports = function (paths) {
-	describe('JSHint', function () {
+	describe('jshint', function () {
 		paths = paths || ['.'];
 		paths.forEach(function (p) {
 			it('should pass for ' + (p === '.' ? 'working directory' : p), function () {
