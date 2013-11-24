@@ -8,7 +8,7 @@ module.exports = function (err) {
 				err.message += '\n';
 				err.stack += '\n';
 			}
-			err.message += 'JSHint error: ' + error.reason + ' ' + file + ':' + error.line + ':' + error.character;
+			err.message = err.message || 'JSHint error(s)';
 			err.stack += error.reason + '\n at (' + path.resolve(file) + ':' + error.line + ':' + error.character + ')';
 		});
 	};

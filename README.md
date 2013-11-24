@@ -10,7 +10,7 @@ npm install mocha-jshint --save-dev
 
 usage
 -----
-Mocha defaults to looking for your test specs in the `test` folder of yoour project.
+Mocha defaults to looking for your test specs in the `test` folder of your project.
 Add this file as `test/JSHint.spec.js` in your project, with the following content:
 
 ```js
@@ -23,6 +23,18 @@ To grep only the JSHint test, just do
 ```
 mocha --grep JSHint
 ```
+
+configuring jshint
+------------------
+In the root of your project you can add a `.jshintignore` file, where each line is a file or directory for JSHint to ignore
+and not check for errors. (see this project for an example)
+
+At the root of your project you can add a `.jshintrc` file, that specifies what options you want JSHint to run with
+(see this project for an example)
+
+You can also add a `.jshintrc` file to any subdirectory of your project, to override the .jshintrc settings in the root.
+For example in this project I allow some global variables in the `test` folder. Global variables that are set when I
+run mocha tests. Global variables that are only allowed to be used, in the .js files in the test folder
 
 Why?
 ---
