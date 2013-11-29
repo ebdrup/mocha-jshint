@@ -7,8 +7,9 @@ module.exports = function (paths) {
 				this.timeout(30000);
 				var cwd = process.cwd();
 				process.chdir(path.resolve(p));
-				delete require.cache[require.resolve('./node_modules/jshint/src/cli.js')];
-				var jsHint = require('./node_modules/jshint/src/cli.js');
+				var jsHintCliPath = path.resolve(path.dirname(require.resolve('jshint')), 'cli.js');
+				delete require.cache[jsHintCliPath];
+				var jsHint = require(jsHintCliPath);
 				var error = new Error('');
 				error.message = '';
 				error.stack = '';
