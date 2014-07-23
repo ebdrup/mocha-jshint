@@ -15,6 +15,7 @@ module.exports = function (paths) {
 				error.stack = '';
 				var options = {
 					args: ['.'],
+					verbose: true,
 					reporter: require('./reporter.js')(error)
 				};
 				jsHint.run(options);

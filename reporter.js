@@ -7,8 +7,10 @@ module.exports = function (err) {
 			if (err.message) {
 				err.stack += '\n';
 			}
-			err.message = err.message || 'jshint error(s)';
-			err.stack += error.reason + '\n at (' + path.resolve(file) + ':' + error.line + ':' + error.character + ')';
+			err.message = err.message || 'jshint error' + (results.length > 1 ? 's' : '');
+			err.stack += error.reason +
+				(error.code ? ' (' + error.code + ')' : '') +
+				'\n at (' + path.resolve(file) + ':' + error.line + ':' + error.character + ')';
 		});
 	};
 };
