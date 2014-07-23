@@ -16,7 +16,7 @@
     "mocha": ""
   },
   "dependencies": {
-    "jshint": "~2.3"
+    "jshint": "~2.5"
   },
   "directories": {
     "test": "test"
