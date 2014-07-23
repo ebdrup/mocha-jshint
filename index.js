@@ -4,7 +4,7 @@ module.exports = function (paths) {
 		paths = paths || ['.'];
 		paths.forEach(function (p) {
 			it('should pass for ' + (p === '.' ? 'working directory' : p), function () {
-				this.timeout(30000);
+				this.timeout && this.timeout(30000);
 				var cwd = process.cwd();
 				process.chdir(path.resolve(p));
 				var jsHintCliPath = path.resolve(path.dirname(require.resolve('jshint')), 'cli.js');

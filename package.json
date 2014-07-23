@@ -1,6 +1,6 @@
 {
   "name": "mocha-jshint",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "run JSHint as mocha tests",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "mocha": ""
   },
   "dependencies": {
-    "jshint": "~2.5"
+    "jshint": "^2.5"
   },
   "directories": {
     "test": "test"
