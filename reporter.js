@@ -1,4 +1,5 @@
-var path = require('path');
+var path = require('path'),
+	util = require('util');
 module.exports = function (err) {
 	return function (results) {
 		results.forEach(function (result) {
@@ -7,10 +8,10 @@ module.exports = function (err) {
 			if (err.message) {
 				err.stack += '\n';
 			}
-			err.message = err.message || 'jshint error' + (results.length > 1 ? 's' : '');
-			err.stack += error.reason +
-				(error.code ? ' (' + error.code + ')' : '') +
-				'\n at (' + path.resolve(file) + ':' + error.line + ':' + error.character + ')';
+			err.message = err.message ||
+				util.format('%s%s', error.reason, error.code ? ' (' + error.code + ')' : '') ||
+				util.format('jshint error%s', results.length && 's' || '');
+			err.stack += util.format('%s\n at (%s:%d:%d)', err.message, path.resolve(file), error.line, error.character);
 		});
 	};
 };
