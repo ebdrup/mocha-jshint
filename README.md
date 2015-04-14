@@ -44,3 +44,7 @@ This module was created to:
 - Make it easy to piggyback on all the different Mocha reporters (dot, spec, teamcity etc) for jshint output
 - Make sure that you get a click-able link directly to the problem in WebStorm, when jshint fails
 - Make sure that there is no unnecessary noise in the test output
+
+License
+--------
+MIT
