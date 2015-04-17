@@ -6,7 +6,8 @@ module.exports = function (options, cb) {
 	if (!options.modified && !options.commits) {
 		cb(new Error('git options need to have either options.modified:true or have options.commits>0'));
 	}
-	return exec('git log --pretty=format:%h', findSHA);
+	var maxCount = options.commits || 1;
+	return exec(format('git log --pretty=format:%h --max-count=%d', maxCount), findSHA);
 
 	function findSHA(err, stdout) {
 		if (err) {
