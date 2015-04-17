@@ -35,8 +35,24 @@ require('mocha-jshint')({
 	}
 });
 ```
-This means that jshint will only hint the files that are modified according to git, and the files modified in the last 
+This means that jshint will only lint the files that are modified on disk according to git, and the files modified in the last 
 two git commits.
+
+There is also the `masterDiff` option:
+```js
+require('mocha-jshint')({
+	git: {
+		modified: true,
+		commits: 2,
+		masterDiff:true
+	}
+});
+```
+This means that if we are on any other branch than `master`, only the files changed compared to the `master` branch
+will be linted.
+
+If we are on the `master` branch, only the files that are modified on disk according to git, and the files modified in the last 
+two git commits will be linted.
 
 
 configuring jshint
