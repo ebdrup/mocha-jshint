@@ -1,12 +1,20 @@
 var path = require('path');
-module.exports = function (paths) {
+module.exports = function (opt) {
 	describe('jshint', function () {
-		paths = paths || ['.'];
-		paths.forEach(function (p) {
-			it('should pass for ' + (p === '.' ? 'working directory' : p), function () {
-				this.timeout && this.timeout(30000);
-				var cwd = process.cwd();
-				process.chdir(path.resolve(p));
+		it('should pass for working directory', function (done) {
+			this.timeout && this.timeout(30000);
+			if (opt && opt.git) {
+				return require('./git')(opt.git, run);
+			}
+			return run(null, ['.']);
+
+			function run(err, files) {
+				if (err) {
+					return done(err);
+				}
+				if (files.length === 0) {
+					return done();
+				}
 				var jsHintCliPath = path.resolve(path.dirname(require.resolve('jshint')), 'cli.js');
 				delete require.cache[jsHintCliPath];
 				var jsHint = require(jsHintCliPath);
@@ -14,16 +22,16 @@ module.exports = function (paths) {
 				error.message = '';
 				error.stack = '';
 				var options = {
-					args: ['.'],
+					args: files,
 					verbose: true,
 					reporter: require('./reporter.js')(error)
 				};
 				jsHint.run(options);
-				process.chdir(cwd);
 				if (error.message) {
-					throw error;
+					return done(error);
 				}
-			});
+				return done();
+			}
 		});
 	});
 };

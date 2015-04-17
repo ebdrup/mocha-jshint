@@ -24,6 +24,21 @@ To grep only the jshint test, just do
 mocha --grep jshint
 ```
 
+using with git
+--------------
+If you are using git as version control you can do the following in your test:
+```js
+require('mocha-jshint')({
+	git: {
+		modified: true,
+		commits: 2
+	}
+});
+```
+This means that jshint will only hint the files that are modified according to git, and the files modified in the last 
+two git commits.
+
+
 configuring jshint
 ------------------
 In the root of your project you can add a `.jshintignore` file, where each line is a file or directory for jshint to ignore
@@ -44,6 +59,10 @@ This module was created to:
 - Make it easy to piggyback on all the different Mocha reporters (dot, spec, teamcity etc) for jshint output
 - Make sure that you get a click-able link directly to the problem in WebStorm, when jshint fails
 - Make sure that there is no unnecessary noise in the test output
+
+Version history
+---------------
+2.0: Added git features. Removed old undocumented paths feature.
 
 License
 --------
