@@ -1,4 +1,4 @@
-mocha-jshint
+mocha-jshint [![npm version](https://badge.fury.io/js/mocha-jshint.svg)](http://badge.fury.io/js/mocha-jshint) [![Build Status](https://travis-ci.org/ebdrup/mocha-jshint.svg?branch=master)](https://travis-ci.org/ebdrup/mocha-jshint) [![Dependency Status](https://david-dm.org/ebdrup/mocha-jshint.svg)](https://david-dm.org/ebdrup/mocha-jshint) [![devDependency Status](https://david-dm.org/ebdrup/mocha-jshint/dev-status.svg)](https://david-dm.org/ebdrup/mocha-jshint#info=devDependencies)
 ------------
 
 Run jshint as Mocha tests.
