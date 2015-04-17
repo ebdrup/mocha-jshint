@@ -16,7 +16,7 @@ module.exports = function (options, cb) {
 			return cb(err);
 		}
 		var branch = stdout.trim();
-		if (branch === 'master') {
+		if (branch === 'master' || branch === 'HEAD') {
 			return compareLatestCommits();
 		}
 		var command = format('git diff --name-only "master...%s"', branch);
