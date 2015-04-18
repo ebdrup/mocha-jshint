@@ -78,6 +78,7 @@ This module was created to:
 
 Version history
 ---------------
+2.1: Added git `masterDiff` option.
 2.0: Added git features. Removed old undocumented paths feature.
 
 License
