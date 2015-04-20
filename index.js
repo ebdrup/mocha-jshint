@@ -12,6 +12,11 @@ function createTest(files){
 			verbose: true,
 			reporter: reporter.report
 		};
+
+		if (files.length === 0) {
+			return done();
+		}
+
 		this.timeout && this.timeout(30000);
 		jsHint.run(options);
 		if (reporter.error.message) {
@@ -23,14 +28,14 @@ function createTest(files){
 
 module.exports = function (opt) {
 	opt = opt || {};
-	describe(opt.title || 'jshint', function (done) {
+	describe(opt.title || 'jshint', function () {
 		var files = ['.'];		
 
 		if (opt.git) {
 			return require('./git')(opt.git, run);	
 		} else if (opt.files) {
 			files = opt.files;
-			if (typeof files == 'string') {
+			if (typeof files === 'string') {
 				files = [files];
 			}
 		}
@@ -38,21 +43,19 @@ module.exports = function (opt) {
 		return run(null, files);
 
 		function run(err, files) {
-			if (err) {
-				//return done(err);
-			}
-			if (files.length === 0) {
-				//return done();
-			}
+			before(function(){
+				if (err) {
+					throw err;
+				}
+			});
 			
 			if (opt.git) {
 				it('should pass for working directory', createTest(files));
 			} else {
 				files.forEach(function (file) {
-					it('should pass for ' + path.resolve(file), createTest([file]));
+					it('should pass for ' + JSON.stringify(path.resolve(file)), createTest([file]));
 				});
-			}	
-			//done();
+			}
 		}
 	});
 };

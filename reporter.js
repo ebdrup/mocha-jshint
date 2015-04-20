@@ -29,6 +29,6 @@ Reporter.prototype = {
 		});
 		return err;
 	}
-}
+};
 
 module.exports = Reporter;
