@@ -54,19 +54,24 @@ will be linted.
 If we are on the `master` branch, only the files that are modified on disk according to git, and the files modified in the last 
 two git commits will be linted.
 
-specifying multiple paths
--------------------------
-If you want to specify multiple paths to lint, you can do the following in your test:
+specifying paths
+----------------
+Normally I would recommend configuring what to lint with `.jshintingore` described in 
+[configuring jshint](https://github.com/ebdrup/mocha-jshint#configuring-jshint). 
+And just lint the working directory.
+
+But if you want to specify specific paths to lint, you can do the following in your test:
 ```js
 require('mocha-jshint')({
-	files: [
+	paths: [
 		'/some/path/',
 		'/some/other/path'
 	]
 });
 ```
 
-Each "file" may be either a file path or a directory path, and should yield a valid file or directory when passed through `path.resolve()`. Each path listed in the array will be linted on a separate test.
+Each path may be either a file path or a directory path, and should yield a valid file or directory when passed 
+through `path.resolve()`. Each path listed in the array will be linted on a separate test.
 
 changing test suite name
 ------------------------
@@ -100,6 +105,8 @@ This module was created to:
 
 Version history
 ---------------
+2.2: Added `paths` and `title` options.
+
 2.1: Added git `masterDiff` option.
 
 2.0: Added git features. Removed old undocumented paths feature.

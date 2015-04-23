@@ -1,61 +1,52 @@
 var path = require('path');
+var format = require('util').format;
 var jsHintCliPath = path.resolve(path.dirname(require.resolve('jshint')), 'cli.js');
 delete require.cache[jsHintCliPath];
 var jsHint = require(jsHintCliPath);
-var Reporter = require('./reporter.js');
 
-function createTest(files){
-	return function (done) {
-		var reporter = new Reporter();
-		var options = {
-			args: files,
-			verbose: true,
-			reporter: reporter.report
-		};
-
-		if (files.length === 0) {
-			return done();
-		}
-
-		this.timeout && this.timeout(30000);
-		jsHint.run(options);
-		if (reporter.error.message) {
-			return done(reporter.error);
-		}
-		return done();
+function runJSHint(files, cb) {
+	var err = new Error('');
+	err.message = '';
+	err.stack = '';
+	var options = {
+		args: files,
+		verbose: true,
+		reporter: require('./reporter.js')(err)
 	};
+	jsHint.run(options);
+	if (err.message) {
+		return cb(err);
+	}
+	return cb();
 }
 
 module.exports = function (opt) {
 	opt = opt || {};
-	describe(opt.title || 'jshint', function () {
-		var files = ['.'];		
+	if (opt && opt.git) {
+		return require('./git')(opt.git, run);
+	}
+	return run(null, ['.']);
 
-		if (opt.git) {
-			return require('./git')(opt.git, run);	
-		} else if (opt.files) {
-			files = opt.files;
-			if (typeof files === 'string') {
-				files = [files];
-			}
-		}
-
-		return run(null, files);
-
-		function run(err, files) {
-			before(function(){
-				if (err) {
-					throw err;
-				}
-			});
-			
-			if (opt.git) {
-				it('should pass for working directory', createTest(files));
-			} else {
-				files.forEach(function (file) {
-					it('should pass for ' + JSON.stringify(path.resolve(file)), createTest([file]));
+	function run(err, paths) {
+		describe(opt.title || 'jshint', function () {
+			this.timeout && this.timeout(30000);
+			if (!opt.paths) {
+				return it('should pass for working directory', function (done) {
+					if (err) {
+						return done(err);
+					}
+					if (paths.length === 0) {
+						return done();
+					}
+					runJSHint(paths, done);
 				});
 			}
-		}
-	});
+			opt.paths.forEach(function (p) {
+				it(format('should pass for %s', JSON.stringify(p)), function (done) {
+					runJSHint([p], done);
+				});
+
+			});
+		});
+	}
 };
