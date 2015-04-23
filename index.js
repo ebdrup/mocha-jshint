@@ -1,37 +1,61 @@
 var path = require('path');
-module.exports = function (opt) {
-	describe('jshint', function () {
-		it('should pass for working directory', function (done) {
-			this.timeout && this.timeout(30000);
-			if (opt && opt.git) {
-				return require('./git')(opt.git, run);
-			}
-			return run(null, ['.']);
+var jsHintCliPath = path.resolve(path.dirname(require.resolve('jshint')), 'cli.js');
+delete require.cache[jsHintCliPath];
+var jsHint = require(jsHintCliPath);
+var Reporter = require('./reporter.js');
 
-			function run(err, files) {
-				if (err) {
-					return done(err);
-				}
-				if (files.length === 0) {
-					return done();
-				}
-				var jsHintCliPath = path.resolve(path.dirname(require.resolve('jshint')), 'cli.js');
-				delete require.cache[jsHintCliPath];
-				var jsHint = require(jsHintCliPath);
-				var error = new Error('');
-				error.message = '';
-				error.stack = '';
-				var options = {
-					args: files,
-					verbose: true,
-					reporter: require('./reporter.js')(error)
-				};
-				jsHint.run(options);
-				if (error.message) {
-					return done(error);
-				}
-				return done();
+function createTest(files){
+	return function (done) {
+		var reporter = new Reporter();
+		var options = {
+			args: files,
+			verbose: true,
+			reporter: reporter.report
+		};
+
+		if (files.length === 0) {
+			return done();
+		}
+
+		this.timeout && this.timeout(30000);
+		jsHint.run(options);
+		if (reporter.error.message) {
+			return done(reporter.error);
+		}
+		return done();
+	};
+}
+
+module.exports = function (opt) {
+	opt = opt || {};
+	describe(opt.title || 'jshint', function () {
+		var files = ['.'];		
+
+		if (opt.git) {
+			return require('./git')(opt.git, run);	
+		} else if (opt.files) {
+			files = opt.files;
+			if (typeof files === 'string') {
+				files = [files];
 			}
-		});
+		}
+
+		return run(null, files);
+
+		function run(err, files) {
+			before(function(){
+				if (err) {
+					throw err;
+				}
+			});
+			
+			if (opt.git) {
+				it('should pass for working directory', createTest(files));
+			} else {
+				files.forEach(function (file) {
+					it('should pass for ' + JSON.stringify(path.resolve(file)), createTest([file]));
+				});
+			}
+		}
 	});
 };
