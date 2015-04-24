@@ -22,16 +22,22 @@ function runJSHint(files, cb) {
 
 module.exports = function (opt) {
 	opt = opt || {};
-	if (opt && opt.git) {
-		return require('./git')(opt.git, run);
-	}
-	return run(null, ['.']);
-
-	function run(err, paths) {
+	if(!opt.git) {
 		describe(opt.title || 'jshint', function () {
 			this.timeout && this.timeout(30000);
-			if (!opt.paths) {
-				return it('should pass for working directory', function (done) {
+			(opt.paths || ['.']).forEach(function (p) {
+				it(format('should pass for %s', p==='.'? 'working directory' : JSON.stringify(p)), function (done) {
+					runJSHint([p], done);
+				});
+			});
+		});
+	} else if (opt && opt.git) {
+		describe(opt.title || 'jshint', function () {
+			this.timeout && this.timeout(30000);
+			return it('should pass for working directory', function (done) {
+				return require('./git')(opt.git, run);
+
+				function run(err, paths) {
 					if (err) {
 						return done(err);
 					}
@@ -39,13 +45,7 @@ module.exports = function (opt) {
 						return done();
 					}
 					runJSHint(paths, done);
-				});
-			}
-			opt.paths.forEach(function (p) {
-				it(format('should pass for %s', JSON.stringify(p)), function (done) {
-					runJSHint([p], done);
-				});
-
+				}
 			});
 		});
 	}

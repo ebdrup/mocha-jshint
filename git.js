@@ -1,6 +1,8 @@
 var exec = require('child_process').exec;
 var format = require('util').format;
 var uniq = require('uniq');
+var path = require('path');
+var fs = require('fs');
 
 module.exports = function (options, cb) {
 	if (!options.modified && !options.commits) {
@@ -56,6 +58,9 @@ module.exports = function (options, cb) {
 		var files = uniq(stdout.split('\n'))
 			.filter(function (filename) {
 				return filename.split('.').pop() === 'js';
+			})
+			.filter(function(filename){
+				return fs.existsSync(path.resolve(filename));
 			});
 		return cb(null, files);
 	}
