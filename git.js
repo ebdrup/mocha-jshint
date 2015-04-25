@@ -59,7 +59,7 @@ module.exports = function (options, cb) {
 			.filter(function (filename) {
 				return filename.split('.').pop() === 'js';
 			})
-			.filter(function(filename){
+			.filter(function (filename) {
 				return fs.existsSync(path.resolve(filename));
 			});
 		return cb(null, files);

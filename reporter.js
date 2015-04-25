@@ -2,16 +2,14 @@ var path = require('path'),
 	util = require('util');
 module.exports = function (err) {
 	return function (results) {
-		results.forEach(function (result) {
-			var file = result.file;
-			var error = result.error;
-			if (err.message) {
-				err.stack += '\n';
-			}
-			err.message = err.message ||
-				util.format('%s%s', error.reason, error.code ? ' (' + error.code + ')' : '') ||
-				util.format('jshint error%s', results.length && 's' || '');
-			err.stack += util.format('%s\n at (%s:%d:%d)', err.message, path.resolve(file), error.line, error.character);
-		});
+		err.message += ((err.message && results.length) ? '\n' : '') +
+			results.map(function (result) {
+				var e = result.error;
+				return util.format(
+					'%s%s\n at (%s:%d:%d)',
+					e.reason, e.code ? ' (' + e.code + ')' : '',
+					path.resolve(result.file), e.line, e.character
+				);
+			}).join('\n');
 	};
 };
