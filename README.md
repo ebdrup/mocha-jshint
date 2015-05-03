@@ -56,7 +56,7 @@ two git commits will be linted.
 
 specifying paths
 ----------------
-Normally I would recommend configuring what to lint with `.jshintingore` described in 
+Normally I would recommend configuring what to lint with `.jshintignore` described in 
 [configuring jshint](https://github.com/ebdrup/mocha-jshint#configuring-jshint). 
 And just lint the working directory.
 
