@@ -16,7 +16,9 @@
     "mocha": ""
   },
   "dependencies": {
-    "jshint": "^2.7",
+    "jshint": "~2.7.0",
+    "minimatch": "^2.0.7",
+    "shelljs": "^0.4.0",
     "uniq": "^1.0.1"
   },
   "directories": {
