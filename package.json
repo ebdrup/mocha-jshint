@@ -13,13 +13,13 @@
   "author": "Allan Ebdrup",
   "license": "MIT",
   "devDependencies": {
-    "mocha": ""
+    "mocha": "2.3.3"
   },
   "dependencies": {
-    "jshint": "~2.7.0",
-    "minimatch": "^2.0.7",
-    "shelljs": "^0.4.0",
-    "uniq": "^1.0.1"
+    "jshint": "2.7.0",
+    "minimatch": "2.0.10",
+    "shelljs": "0.4.0",
+    "uniq": "1.0.1"
   },
   "directories": {
     "test": "test"
