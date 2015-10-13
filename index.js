@@ -33,7 +33,7 @@ module.exports = function (opt) {
 		});
 	} else if (opt && opt.git) {
 		describe(opt.title || 'jshint', function () {
-			this.timeout && this.timeout(30000);
+			this.timeout && this.timeout(90000);
 			return it('should pass for working directory', function (done) {
 				return require('./git')(opt.git, run);
 
