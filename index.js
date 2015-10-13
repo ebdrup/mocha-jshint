@@ -24,7 +24,7 @@ module.exports = function (opt) {
 	opt = opt || {};
 	if (!opt.git) {
 		describe(opt.title || 'jshint', function () {
-			this.timeout && this.timeout(30000);
+			this.timeout && this.timeout(90000);
 			(opt.paths || ['.']).forEach(function (p) {
 				it(format('should pass for %s', p === '.' ? 'working directory' : JSON.stringify(p)), function (done) {
 					runJSHint([p], done);
