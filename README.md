@@ -31,7 +31,10 @@ If you are using git as version control you can do the following in your test:
 require('mocha-jshint')({
 	git: {
 		modified: true,
-		commits: 2
+		commits: 2,
+		exec: {
+			maxBuffer: 20*1024*1024
+		}
 	}
 });
 ```

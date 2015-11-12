@@ -11,7 +11,7 @@ module.exports = function (options, cb) {
 		cb(new Error('git options need to have either options.modified:true or have options.commits>0'));
 	}
 	if (options.masterDiff) {
-		return exec('git rev-parse --abbrev-ref HEAD', getFilesChangesInCurrentBranch);
+		return exec('git rev-parse --abbrev-ref HEAD', options.exec, getFilesChangesInCurrentBranch);
 	}
 	return compareLatestCommits();
 
@@ -27,12 +27,12 @@ module.exports = function (options, cb) {
 		if (options.modified) {
 			command += ' && git diff --name-only HEAD';
 		}
-		return exec(command, returnFiles);
+		return exec(command, options.exec, returnFiles);
 	}
 
 	function compareLatestCommits() {
 		var maxCount = (options.commits || 0) + 1;
-		return exec(format('git log --pretty=format:%h --max-count=%d', maxCount), findSHA);
+		return exec(format('git log --pretty=format:%h --max-count=%d', maxCount), options.exec, findSHA);
 	}
 
 	function findSHA(err, stdout) {
@@ -50,7 +50,7 @@ module.exports = function (options, cb) {
 		if (!command) {
 			return cb(null, []);
 		}
-		return exec(command, returnFiles);
+		return exec(command, options.exec, returnFiles);
 	}
 
 	function returnFiles(err, stdout) {
