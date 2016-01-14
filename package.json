@@ -16,7 +16,7 @@
     "mocha": ""
   },
   "dependencies": {
-    "jshint": "~2.8.0",
+    "jshint": "~2.9.1",
     "minimatch": "3.0.0",
     "shelljs": "^0.4.0",
     "uniq": "^1.0.1"
