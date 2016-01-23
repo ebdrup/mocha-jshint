@@ -85,6 +85,29 @@ require('mocha-jshint')({
 });
 ```
 
+
+fancy output
+------------
+For possibly-prettier output, with errors grouped by filename, enable the `fancy` option:
+```js
+require('mocha-jshint')({
+	fancy: true
+});
+```
+
+Sample output:
+```
+$ npm test
+  1) jshint should pass for working directory:
+      Found 3 jshint error(s) in 2 file(s):
+           /tmp/abc.js
+                    1:1     Missing semicolon. (W033)
+                   18:0     Identifier 'good_times' is not in camel case. (W106)
+
+           /tmp/xyz.js
+                    3:5     '_' is defined but never used. (W098)
+```
+
 configuring jshint
 ------------------
 In the root of your project you can add a `.jshintignore` file, where each line is a file or directory for jshint to ignore
