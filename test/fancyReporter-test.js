@@ -30,7 +30,7 @@ describe('fancyReporter', function() {
 		];
 		reporter(errors);
 
-		var expectedMessage = "Found 1 jshint error(s) in 1 file(s):\n          /tmp/abc.js\n                   1:1     Missing semicolon. (W033)\n\n";
+		var expectedMessage = "Found 1 jshint error(s) in 1 file(s):\n          /tmp/abc.js\n                   1:1     Missing semicolon. (W033)";
 		assert.equal(err.message, expectedMessage);
 	});
 
@@ -67,7 +67,7 @@ describe('fancyReporter', function() {
 		];
 		reporter(errors);
 
-		var expectedMessage = "Found 3 jshint error(s) in 2 file(s):\n          /tmp/abc.js\n                   1:1     Missing semicolon. (W033)\n                  18:0     Identifier 'good_times' is not in camel case. (W106)\n\n          /tmp/xyz.js\n                   3:5     '_' is defined but never used. (W098)\n\n";
+		var expectedMessage = "Found 3 jshint error(s) in 2 file(s):\n          /tmp/abc.js\n                   1:1     Missing semicolon. (W033)\n                  18:0     Identifier 'good_times' is not in camel case. (W106)\n\n          /tmp/xyz.js\n                   3:5     '_' is defined but never used. (W098)";
 		assert.equal(err.message, expectedMessage);
 	});
 

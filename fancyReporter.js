@@ -85,6 +85,8 @@ module.exports = function (err) {
             message += '\n';
         });
 
+        message = message.replace(/\n+$/, '');
+
         err.message = message;
     };
 };
