@@ -4,7 +4,7 @@ var jsHintCliPath = path.resolve(path.dirname(require.resolve('jshint')), 'cli.j
 delete require.cache[jsHintCliPath];
 var jsHint = require(jsHintCliPath);
 
-function runJSHint(files, cb, fancy) {
+function runJSHint(files, cb, pretty) {
 	var err = new Error('');
 	err.message = '';
 	err.stack = '';
@@ -12,8 +12,8 @@ function runJSHint(files, cb, fancy) {
 		args: files,
 		verbose: true,
 	};
-	if (fancy) {
-		options.reporter = require('./fancyReporter.js')(err);
+	if (pretty) {
+		options.reporter = require('./prettyReporter.js')(err);
 	} else {
 		options.reporter = require('./reporter.js')(err);
 	}
@@ -32,7 +32,7 @@ module.exports = function (opt) {
 			this.timeout && this.timeout(90000);
 			(opt.paths || ['.']).forEach(function (p) {
 				it(format('should pass for %s', p === '.' ? 'working directory' : JSON.stringify(p)), function (done) {
-					runJSHint([p], done, opt.fancy);
+					runJSHint([p], done, opt.pretty);
 				});
 			});
 		});
@@ -49,7 +49,7 @@ module.exports = function (opt) {
 					if (paths.length === 0) {
 						return done();
 					}
-					runJSHint(paths, done, opt.fancy);
+					runJSHint(paths, done, opt.pretty);
 				}
 			});
 		});

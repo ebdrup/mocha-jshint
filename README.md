@@ -86,12 +86,12 @@ require('mocha-jshint')({
 ```
 
 
-fancy output
-------------
-For possibly-prettier output, with errors grouped by filename, enable the `fancy` option:
+pretty output
+-------------
+For pretty-printed output, with errors grouped by filename, enable the `pretty` option:
 ```js
 require('mocha-jshint')({
-	fancy: true
+	pretty: true
 });
 ```
 

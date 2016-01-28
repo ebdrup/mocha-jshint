@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-describe('fancyReporter', function() {
+describe('prettyReporter', function() {
 
 	var err;
 
@@ -9,14 +9,14 @@ describe('fancyReporter', function() {
 	});
 
 	it('with no errors', function() {
-		var reporter = require('../fancyReporter')(err);
+		var reporter = require('../prettyReporter')(err);
 		var errors = [];
 		reporter(errors);
 		assert.equal(err.message, '');
 	});
 
 	it('with single error', function() {
-		var reporter = require('../fancyReporter')(err);
+		var reporter = require('../prettyReporter')(err);
 		var errors = [
 			{
 				file: '/tmp/abc.js',
@@ -35,7 +35,7 @@ describe('fancyReporter', function() {
 	});
 
 	it('with multiple errors', function() {
-		var reporter = require('../fancyReporter')(err);
+		var reporter = require('../prettyReporter')(err);
 		var errors = [
 			{
 				file: '/tmp/abc.js',
