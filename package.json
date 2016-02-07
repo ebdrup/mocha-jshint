@@ -1,6 +1,6 @@
 {
   "name": "mocha-jshint",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "run JSHint as mocha tests",
   "main": "index.js",
   "scripts": {
