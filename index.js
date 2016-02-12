@@ -36,7 +36,7 @@ module.exports = function (opt) {
 				});
 			});
 		});
-	} else if (opt && opt.git) {
+	} else if (opt.git) {
 		describe(opt.title || 'jshint', function () {
 			this.timeout && this.timeout(90000);
 			return it('should pass for working directory', function (done) {
