@@ -18,7 +18,7 @@
   "dependencies": {
     "jshint": "^2.8.0",
     "minimatch": "^3.0.0",
-    "shelljs": "^0.4.0",
+    "shelljs": "^0.7.3",
     "uniq": "^1.0.1"
   },
   "directories": {
