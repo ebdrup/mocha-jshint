@@ -13,7 +13,7 @@
   "author": "Allan Ebdrup",
   "license": "MIT",
   "devDependencies": {
-    "mocha": ""
+    "mocha": "3.4.0"
   },
   "dependencies": {
     "jshint": "^2.8.0",
